@@ -4,12 +4,12 @@
           <v-flex xs12>
               <v-card>
                 <v-card-media
-                  src="http://dreamypixel.com/wp-content/uploads/2015/09/mountain-pass-vrsic-print-featured.jpg"
+                  :src="ad.imageSrc"
                   height="300"
                 ></v-card-media>
                 <v-card-text>
-                  <h1 class="text--primary">Some title</h1>
-                  <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.<br> Mollitia, ad? Quos asperiores laboriosam temporibus necessitatibus cum. <br>Aliquid aut ipsam harum atque quas architecto voluptas iste?</p>
+                  <h1 class="text--primary">{{ad.title}}</h1>
+                  <p>{{ad.description}}</p>
                 </v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
@@ -24,8 +24,12 @@
 
 <script>
   export default {
-    data () {
-      return {}
+    props: ['id'],
+    computed: {
+      ad () {
+        const id = this.id
+        return this.$store.getters.adById(id)
+      }
     }
   }
 </script>

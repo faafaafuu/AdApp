@@ -77,7 +77,8 @@
           const ad = {
             title: this.title,
             description: this.description,
-            promo: this.promo
+            promo: this.promo,
+            imageSrc: '../assets/4.png'
           }
           console.log(ad)
         }
