@@ -5,28 +5,28 @@ export default {
         title: '1st add',
         desctiption: 'm1',
         promo: false,
-        imageSrc: '../assets/1.jpg',
+        imageSrc: 'https://timedotcom.files.wordpress.com/2014/05/wallpaperfx.jpg',
         id: '123'
       },
       {
         title: '2nd add',
         desctiption: 'm1',
         promo: true,
-        imageSrc: '../assets/2.jpg',
+        imageSrc: 'https://timedotcom.files.wordpress.com/2014/05/vladstudio.jpg',
         id: '1234'
       },
       {
         title: '3rd add',
         desctiption: 'm1',
         promo: true,
-        imageSrc: '../assets/3.jpg',
+        imageSrc: 'https://wallpaper.wiki/wp-content/uploads/2017/06/Wood-Bokeh-Retina-Wallpaper.jpg',
         id: '12345'
       }
     ]
   },
   mutations: {
     createAd (state, payload) {
-      state.push(payload)
+      state.ads.push(payload)
     }
   },
   actions: {
@@ -50,7 +50,7 @@ export default {
     },
     adById (state) {
       return adId => {
-        return state.ads.find(e => e.ad === adId)
+        return state.ads.find(e => e.id === adId)
       }
     }
   }

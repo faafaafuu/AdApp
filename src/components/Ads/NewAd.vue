@@ -73,14 +73,15 @@
     },
     methods: {
       createAd () {
-        if (this.$refs.form.validate) {
+        if (this.$refs.form.validate()) {
           const ad = {
             title: this.title,
             description: this.description,
             promo: this.promo,
-            imageSrc: '../assets/4.png'
+            imageSrc: 'https://gadgetmac.com/s/12-inch-retina-macbook-fall-leaves-wallpaper.jpg'
           }
-          console.log(ad)
+          // Диспачит вызываемый экшн
+          this.$store.dispatch('createAd', ad)
         }
       }
     }
