@@ -47,6 +47,24 @@
     <v-content>
       <router-view></router-view>
     </v-content>
+    <template v-if="error">
+        <v-snackbar
+          color="error"
+          @input="closeError"
+          :multi-line="mode === 'multi-line'"
+          :timeout="5000"
+          :value="true"
+        >
+          {{error}}
+        <v-btn
+          color="white"
+          flat
+          @click="closeError"
+        >
+        &#10006;
+      </v-btn>
+    </v-snackbar>
+    </template>
   </v-app>
 </template>
 
@@ -62,6 +80,16 @@ export default {
         {title: 'New ad', icon: 'note_add', url: '/new'},
         {title: 'My ads', icon: 'list', url: '/list'}
       ]
+    }
+  },
+  methods: {
+    closeError () {
+      return this.$store.dispatch('clearError')
+    }
+  },
+  computed: {
+    error () {
+      return this.$store.getters.error
     }
   }
 }
