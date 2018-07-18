@@ -24,14 +24,14 @@ export default new Router({
       component: Ad
     },
     {
-      path: '/new',
-      name: 'newAd',
-      component: NewAd
-    },
-    {
       path: '/list',
       name: 'list',
       component: AdList
+    },
+    {
+      path: '/new',
+      name: 'newAd',
+      component: NewAd
     },
     {
       path: '/login',
@@ -49,6 +49,5 @@ export default new Router({
       component: Orders
     }
   ],
-  // убрал хэш('#')
   mode: 'history'
 })

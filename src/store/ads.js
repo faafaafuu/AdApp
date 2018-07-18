@@ -2,22 +2,22 @@ export default {
   state: {
     ads: [
       {
-        title: '1st add',
-        desctiption: 'm1',
+        title: 'First ad',
+        description: 'Hello i am description',
         promo: false,
         imageSrc: 'https://timedotcom.files.wordpress.com/2014/05/wallpaperfx.jpg',
         id: '123'
       },
       {
-        title: '2nd add',
-        desctiption: 'm1',
+        title: 'Second ad',
+        description: 'Hello i am description',
         promo: true,
         imageSrc: 'https://timedotcom.files.wordpress.com/2014/05/vladstudio.jpg',
         id: '1234'
       },
       {
-        title: '3rd add',
-        desctiption: 'm1',
+        title: 'Third ad',
+        description: 'Hello i am description',
         promo: true,
         imageSrc: 'https://wallpaper.wiki/wp-content/uploads/2017/06/Wood-Bokeh-Retina-Wallpaper.jpg',
         id: '12345'
@@ -30,9 +30,9 @@ export default {
     }
   },
   actions: {
-    // комит позваляет диспачить разоичные мутации, pl == ad
     createAd ({commit}, payload) {
-      payload.id = Math.random().toString()
+      payload.id = 'qqwqweqweqw'
+
       commit('createAd', payload)
     }
   },
@@ -41,8 +41,8 @@ export default {
       return state.ads
     },
     promoAds (state) {
-      return state.ads.filter((e) => {
-        return e.promo
+      return state.ads.filter(ad => {
+        return ad.promo
       })
     },
     myAds (state) {
@@ -50,7 +50,7 @@ export default {
     },
     adById (state) {
       return adId => {
-        return state.ads.find(e => e.id === adId)
+        return state.ads.find(ad => ad.id === adId)
       }
     }
   }
