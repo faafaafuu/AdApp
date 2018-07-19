@@ -1,3 +1,16 @@
+import * as fb from 'firebase/app'
+
+class Ad {
+  constructor (ownerId, title, description, imageSrc = '', promo = false, id = null) {
+    this.ownerId = ownerId
+    this.title = title
+    this.description = description
+    this.imageSrc = imageSrc
+    this.promo = promo
+    this.id = id
+  }
+}
+
 export default {
   state: {
     ads: [
@@ -30,10 +43,30 @@ export default {
     }
   },
   actions: {
-    createAd ({commit}, payload) {
-      payload.id = 'qqwqweqweqw'
+    async createAd ({commit, getters}, payload) {
+      commit('clearError')
+      commit('setLoading', true)
 
-      commit('createAd', payload)
+      try {
+        const newAd = new Ad(
+          getters.user.id,
+          payload.title,
+          payload.description,
+          payload.imageSrc,
+          payload.promo
+        )
+        const ad = await fb.database().ref('ads').push(newAd)
+
+        commit('setLoading', false)
+        commit('createAd', {
+          ...newAd,
+          id: ad.key
+        })
+      } catch (error) {
+        commit('setError', error.message)
+        commit('setLoading', false)
+        throw error
+      }
     }
   },
   getters: {
@@ -55,3 +88,13 @@ export default {
     }
   }
 }
+
+// для защиты базы данных, сейчас - { "rules": { ".read": true, ".write": true } }
+// ".read": "(auth != null)", ".write":"(auth != null)",}
+// this.subscription = yourservice.method()
+//   .subcribe( data => {
+//     this.mydata = data
+//   });
+//   ngDestroy () {
+//     this.subcription.unsubscribe ();
+//   }

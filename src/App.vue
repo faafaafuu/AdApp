@@ -70,7 +70,7 @@
         <v-snackbar
           color="error"
           @input="closeError"
-          :multi-line="mode === 'multi-line'"
+          :multi-line="true"
           :timeout="5000"
           :value="true"
         >

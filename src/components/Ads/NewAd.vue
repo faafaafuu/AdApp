@@ -4,22 +4,22 @@
       <v-flex xs12 sm6 offset-sm3>
         <h1 class="text--secondary mb-3">Create new ad</h1>
         <v-form v-model="valid" ref="form" validation class="mb-3">
-          <v-text-field
+          <v-textarea
             name="title"
             label="Ad title"
             type="text"
             v-model="title"
             required
             :rules="[v => !!v || 'Title is required']"
-          ></v-text-field>
-          <v-text-field
+          ></v-textarea>
+          <v-textarea
             name="description"
             label="Ad description"
             type="text"
             v-model="description"
             multi-line
             :rules="[v => !!v || 'Description is required']"
-          ></v-text-field>
+          ></v-textarea>
         </v-form>
         <v-layout row class="mb-3">
           <v-flex xs12>
@@ -47,7 +47,8 @@
           <v-flex xs12>
             <v-spacer></v-spacer>
             <v-btn
-              :disabled="!valid"
+              :loading="loading"
+              :disabled="!valid || loading"
               class="success"
               @click="createAd"
             >
@@ -70,6 +71,11 @@
         valid: false
       }
     },
+    computed: {
+      loading () {
+        return this.$store.getters.loading
+      }
+    },
     methods: {
       createAd () {
         if (this.$refs.form.validate()) {
@@ -82,6 +88,10 @@
           }
 
           this.$store.dispatch('createAd', ad)
+            .then(() => {
+              this.$router.push('/list')
+            })
+            .catch(() => {})
         }
       }
     }
