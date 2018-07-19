@@ -1,10 +1,10 @@
-import * as fb from 'firebase/app'
+import * as fb from 'firebase'
 
 class Ad {
-  constructor (ownerId, title, description, imageSrc = '', promo = false, id = null) {
-    this.ownerId = ownerId
+  constructor (title, description, ownerId, imageSrc = '', promo = false, id = null) {
     this.title = title
     this.description = description
+    this.ownerId = ownerId
     this.imageSrc = imageSrc
     this.promo = promo
     this.id = id
@@ -13,33 +13,14 @@ class Ad {
 
 export default {
   state: {
-    ads: [
-      {
-        title: 'First ad',
-        description: 'Hello i am description',
-        promo: false,
-        imageSrc: 'https://timedotcom.files.wordpress.com/2014/05/wallpaperfx.jpg',
-        id: '123'
-      },
-      {
-        title: 'Second ad',
-        description: 'Hello i am description',
-        promo: true,
-        imageSrc: 'https://timedotcom.files.wordpress.com/2014/05/vladstudio.jpg',
-        id: '1234'
-      },
-      {
-        title: 'Third ad',
-        description: 'Hello i am description',
-        promo: true,
-        imageSrc: 'https://wallpaper.wiki/wp-content/uploads/2017/06/Wood-Bokeh-Retina-Wallpaper.jpg',
-        id: '12345'
-      }
-    ]
+    ads: []
   },
   mutations: {
     createAd (state, payload) {
       state.ads.push(payload)
+    },
+    loadAds (state, payload) {
+      state.ads = payload
     }
   },
   actions: {
@@ -49,12 +30,13 @@ export default {
 
       try {
         const newAd = new Ad(
-          getters.user.id,
           payload.title,
           payload.description,
+          getters.user.id,
           payload.imageSrc,
           payload.promo
         )
+
         const ad = await fb.database().ref('ads').push(newAd)
 
         commit('setLoading', false)
@@ -62,6 +44,31 @@ export default {
           ...newAd,
           id: ad.key
         })
+      } catch (error) {
+        commit('setError', error.message)
+        commit('setLoading', false)
+        throw error
+      }
+    },
+    async fetchAds ({commit}) {
+      commit('clearError')
+      commit('setLoading', true)
+
+      const resultAds = []
+
+      try {
+        const fbVal = await fb.database().ref('ads').once('value')
+        const ads = fbVal.val()
+
+        Object.keys(ads).forEach(key => {
+          const ad = ads[key]
+          resultAds.push(
+            new Ad(ad.title, ad.description, ad.ownerId, ad.imageSrc, ad.promo, key)
+          )
+        })
+
+        commit('loadAds', resultAds)
+        commit('setLoading', false)
       } catch (error) {
         commit('setError', error.message)
         commit('setLoading', false)
@@ -88,13 +95,3 @@ export default {
     }
   }
 }
-
-// для защиты базы данных, сейчас - { "rules": { ".read": true, ".write": true } }
-// ".read": "(auth != null)", ".write":"(auth != null)",}
-// this.subscription = yourservice.method()
-//   .subcribe( data => {
-//     this.mydata = data
-//   });
-//   ngDestroy () {
-//     this.subcription.unsubscribe ();
-//   }

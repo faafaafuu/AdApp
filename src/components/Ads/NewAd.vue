@@ -4,22 +4,22 @@
       <v-flex xs12 sm6 offset-sm3>
         <h1 class="text--secondary mb-3">Create new ad</h1>
         <v-form v-model="valid" ref="form" validation class="mb-3">
-          <v-textarea
+          <v-text-field
             name="title"
             label="Ad title"
             type="text"
             v-model="title"
             required
             :rules="[v => !!v || 'Title is required']"
-          ></v-textarea>
-          <v-textarea
+          ></v-text-field>
+          <v-text-field
             name="description"
             label="Ad description"
             type="text"
             v-model="description"
             multi-line
             :rules="[v => !!v || 'Description is required']"
-          ></v-textarea>
+          ></v-text-field>
         </v-form>
         <v-layout row class="mb-3">
           <v-flex xs12>
@@ -79,12 +79,11 @@
     methods: {
       createAd () {
         if (this.$refs.form.validate()) {
-          // logic
           const ad = {
             title: this.title,
             description: this.description,
             promo: this.promo,
-            imageSrc: 'http://www.heroicpriesthood.com/wp-content/themes/invictus_3.3/images/dummy-image.jpg'
+            imageSrc: 'https://cdn-images-1.medium.com/max/850/1*nq9cdMxtdhQ0ZGL8OuSCUQ.jpeg'
           }
 
           this.$store.dispatch('createAd', ad)

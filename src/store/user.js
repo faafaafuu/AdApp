@@ -50,12 +50,11 @@ export default {
       commit('setUser', null)
     }
   },
-
   getters: {
     user (state) {
       return state.user
     },
-    isUserLogIn (state) {
+    isUserLoggedIn (state) {
       return state.user !== null
     }
   }
