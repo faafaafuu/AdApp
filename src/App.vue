@@ -19,8 +19,8 @@
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile
+          v-if="isUserLoggedIn"
           @click="onLogout"
-          v-if="isUserLogIn"
         >
           <v-list-tile-action>
             <v-icon>exit_to_app</v-icon>
@@ -32,13 +32,13 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-toolbar app dark color="teal lighten-2">
+    <v-toolbar app dark color="primary">
       <v-toolbar-side-icon
         @click="drawer = !drawer"
         class="hidden-md-and-up"
       ></v-toolbar-side-icon>
       <v-toolbar-title>
-        <router-link to="/" tag="span" class="pointer">ADAP</router-link>
+        <router-link to="/" tag="span" class="pointer">Ad application</router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
@@ -52,12 +52,12 @@
           {{link.title}}
         </v-btn>
         <v-btn
-          flat
           @click="onLogout"
-          v-if="isUserLogIn"
+          flat
+          v-if="isUserLoggedIn"
         >
-        <v-icon>exit_to_app</v-icon>
-        Logout
+          <v-icon left>exit_to_app</v-icon>
+          Logout
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
@@ -66,23 +66,18 @@
     <v-content>
       <router-view></router-view>
     </v-content>
+
     <template v-if="error">
-        <v-snackbar
-          color="error"
-          @input="closeError"
-          :multi-line="true"
-          :timeout="5000"
-          :value="true"
-        >
-          {{error}}
-        <v-btn
-          color="white"
-          flat
-          @click="closeError"
-        >
-        &#10006;
-      </v-btn>
-    </v-snackbar>
+      <v-snackbar
+        :timeout="5000"
+        :multi-line="true"
+        color="error"
+        @input="closeError"
+        :value="true"
+      >
+        {{error}}
+        <v-btn flat dark @click.native="closeError">Close</v-btn>
+      </v-snackbar>
     </template>
   </v-app>
 </template>
@@ -94,25 +89,15 @@ export default {
       drawer: false
     }
   },
-  methods: {
-    closeError () {
-      return this.$store.dispatch('clearError')
-    },
-    onLogout () {
-      this.$store.dispatch('logoutUser')
-      this.$router.push('/')
-    }
-  },
   computed: {
     error () {
       return this.$store.getters.error
     },
-    isUserLogIn () {
-      return this.$store.getters.isUserLogIn
+    isUserLoggedIn () {
+      return this.$store.getters.isUserLoggedIn
     },
-    // проверяю залогинен ли пользователь
     links () {
-      if (this.isUserLogIn) {
+      if (this.isUserLoggedIn) {
         return [
           {title: 'Orders', icon: 'bookmark_border', url: '/orders'},
           {title: 'New ad', icon: 'note_add', url: '/new'},
@@ -124,6 +109,15 @@ export default {
         {title: 'Login', icon: 'lock', url: '/login'},
         {title: 'Registration', icon: 'face', url: '/registration'}
       ]
+    }
+  },
+  methods: {
+    closeError () {
+      this.$store.dispatch('clearError')
+    },
+    onLogout () {
+      this.$store.dispatch('logoutUser')
+      this.$router.push('/')
     }
   }
 }
