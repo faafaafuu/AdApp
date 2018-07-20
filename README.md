@@ -1,4 +1,4 @@
-# ad-project
+# the-gallery
 
 > A Vue.js project
 

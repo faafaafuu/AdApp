@@ -13,13 +13,15 @@
             <v-flex xs4>
               <v-card-media
                 :src="ad.imageSrc"
-                height="160px"
+                height="100%"
               ></v-card-media>
             </v-flex>
             <v-flex xs8>
               <v-card-text>
                 <h2 class="text--primary">{{ad.title}}</h2>
-                <p>{{ad.description}}</p>
+                <p
+                 
+                >{{ad.description}}</p>
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
@@ -59,6 +61,9 @@
       },
       loading () {
         return this.$store.getters.loading
+      },
+      descrip () {
+        return this.$store.getters.descrip
       }
     }
   }

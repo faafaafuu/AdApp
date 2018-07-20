@@ -132,5 +132,18 @@ export default {
         return state.ads.find(ad => ad.id === adId)
       }
     }
+    // сокращение описания в эдлисте
+    // descrip (state) {
+    //   const des = state.ads
+    //   for (const key in des) {
+    //     if (des.hasOwnProperty(key)) {
+    //       const element = des[key]
+    //       if (element.description.length > 100) {
+    //         const deSize = element.description.split(' ').slice(0, 15).join(' ')
+    //         console.log(deSize)
+    //       }
+    //     }
+    //   }
+    // }
   }
 }
