@@ -19,12 +19,12 @@ new Vue({
   template: '<App/>',
   created () {
     fb.initializeApp({
-      apiKey: 'AIzaSyD5mgcTCPSiTxPfmTmBmPFWZU7GdR9l1BQ',
-      authDomain: 'itc-ads.firebaseapp.com',
-      databaseURL: 'https://itc-ads.firebaseio.com',
-      projectId: 'itc-ads',
-      storageBucket: 'itc-ads.appspot.com',
-      messagingSenderId: '145551978680'
+      apiKey: 'AIzaSyADHYqwo5GK03Qgir6wT6tUdzSN_To_huQ',
+      authDomain: 'vue-ads-50bbd.firebaseapp.com',
+      databaseURL: 'https://vue-ads-50bbd.firebaseio.com',
+      projectId: 'vue-ads-50bbd',
+      storageBucket: 'vue-ads-50bbd.appspot.com',
+      messagingSenderId: '550028926035'
     })
 
     fb.auth().onAuthStateChanged(user => {
