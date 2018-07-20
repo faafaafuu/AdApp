@@ -10,7 +10,7 @@
               :src="ad.imageSrc"
             >
               <div class="car-link">
-                <v-btn class="error" :to="'/ad/' + ad.id">{{ ad.title }}</v-btn>
+                <v-btn class="error" v-if="true" :to="'/ad/' + ad.id">{{ ad.title }}</v-btn>
               </div>
             </v-carousel-item>
           </v-carousel>
@@ -26,7 +26,7 @@
           v-for="ad of ads"
           :key="ad.id"
         >
-          <v-card>
+          <v-card height="450px">
             <v-card-media
               :src="ad.imageSrc"
               height="200px"
@@ -38,10 +38,10 @@
                 <div>{{ad.description}}</div>
               </div>
             </v-card-title>
-            <v-card-actions>
+            <v-card-actions class="bot-but">
               <v-spacer></v-spacer>
               <v-btn flat :to="'/ad/' + ad.id">Open</v-btn>
-              <v-btn raised class="primary">Buy</v-btn>
+              <app-buy-modal :ad="ad"></app-buy-modal>
             </v-card-actions>
           </v-card>
         </v-flex>
@@ -80,8 +80,8 @@ export default {
 }
 </script>
 
-<style scoped>
-  .car-link {
+<style scoped lang="stylus">
+  .car-link
     position: absolute;
     bottom: 50px;
     left: 50%;
@@ -90,5 +90,9 @@ export default {
     padding: 5px 15px;
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
-  }
+
+  .bot-but
+    position: absolute
+    bottom: 10px;
+    right: 0;
 </style>
