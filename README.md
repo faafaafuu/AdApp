@@ -1,4 +1,5 @@
 # gallery
+
 This is the full responsive Web application built using a Vuejs and Vuetify. 
 - Dynamic interaction between elements/
 - Concealment of routes/
@@ -6,10 +7,12 @@ This is the full responsive Web application built using a Vuejs and Vuetify.
 - Login and registration field with validation/
 - Ability to add/edit and to store (images, description and more) in the catalogue database. Have used google firebase as a database here/
 
+
 <img width="1104" alt="4" src="https://user-images.githubusercontent.com/33225233/43030473-30669636-8c99-11e8-87ac-56c554187d81.png">
 
 
-LInk: https://vue-ads-50bbd.firebaseapp.com/ad/-LHrhCOkvb92AuZskY2U
+
+LInk: https://vue-ads-50bbd.firebaseapp.com/
 
 ## Build Setup
 
