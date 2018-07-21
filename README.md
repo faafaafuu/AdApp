@@ -1,4 +1,4 @@
-# gallery
+# Gallery
 
 This is the full responsive Web application built using a Vuejs and Vuetify. 
 - Dynamic interaction between elements/
